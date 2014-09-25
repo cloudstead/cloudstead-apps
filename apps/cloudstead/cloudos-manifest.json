@@ -1,0 +1,57 @@
+{
+    "name": "cloudstead",
+    "version": "0.1.0",
+    "style": "java_webapp",
+    "publisher": {
+        "maintainer": "Jonathan Cobb",
+        "maintainer_email": "jonathan@cloudstead.io",
+        "license": "https://www.gnu.org/licenses/agpl-3.0.txt",
+        "code_copyright": "Copyright 2014 Cloudstead, Inc.",
+        "packaging_copyright": "Copyright 2014 Cloudstead, Inc."
+    },
+
+    "databags": [
+        {
+            "name": "base",
+            "items": [ "hostname", "parent_domain", "ssl_cert_name" ]
+        }, {
+            "name": "init",
+            "items": [
+                "server_tarball", "cloudos_server_tarball",
+                "aws_access_key", "aws_secret_key", "aws_iam_group", "s3_bucket",
+                "data_key", "cloud_storage_user",
+                "do_client_id", "do_api_key",
+                "wildcard_cert_name",
+                "sendgrid.user", "sendgrid.password",
+                "authy.user", "authy.base_uri",
+                "cloudos_dns.user", "cloudos_dns.password"
+            ]
+        }
+    ],
+
+    "packages": [ "memcached", "redis-server" ],
+
+    "tarball": { "url": "@databag[init][server_tarball]" },
+
+    "database": { "type": "postgresql", "here_schema": "cloudstead.sql" },
+
+    "web": { "type": "apache", "mode": "proxy_root", "ssl_cert_name": "@databag[base][ssl_cert_name]" },
+
+    "templates": {
+        ".cloudstead.env": "dot-cloudstead.env",
+        "/usr/sbin/dns-admin.sh": "_",
+        "install_ssl_certs.sh": "_"
+    },
+
+    "perms": {
+        "install_ssl_certs.sh": { "chown": "@run_as.root", "perms": "700" },
+        "/usr/sbin/dns-admin.sh": { "chown": "root.root", "perms": "700" }
+    },
+
+    "post_install": [
+        { "exec": "@home/install_ssl_certs.sh" },
+        { "exec": "/usr/sbin/dns-admin.sh --operation add --record a --fqdn @hostname --value @ipaddress --ttl 14400" }
+    ],
+
+    "sysinit": [ "jrun" ]
+}

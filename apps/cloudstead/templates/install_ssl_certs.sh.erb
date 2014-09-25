@@ -1,0 +1,15 @@
+#!/bin/bash
+
+<% cert_name = @app[:databag][:init]['wildcard_cert_name'] %>
+
+function die () {
+  echo "${1}" && exit 1
+}
+
+CERT_DIR=<%=@app[:run_as_home]%>/ssl
+mkdir -p ${CERT_DIR} || die "Error creating cert dir ${CERT_DIR}"
+
+cp /etc/ssl/private/<%=cert_name%>.key ${CERT_DIR}/<%=cert_name%>.key || die "Error copying private cert <%=cert_name%>"
+cp /etc/ssl/certs/<%=cert_name%>.pem ${CERT_DIR}/<%=cert_name%>.pem || die "Error copying public cert <%=cert_name%>"
+chown -R <%=@app[:run_as]%> ${CERT_DIR} || die "Error changing ownership of cert dir ${CERT_DIR}"
+chmod -R 700 ${CERT_DIR} || die "Error changing perms of cert dir ${CERT_DIR}"
