@@ -36,17 +36,27 @@ SET default_with_oids = false;
 CREATE TABLE admin (
     uuid character varying(100) NOT NULL,
     ctime bigint NOT NULL,
-    email character varying(255),
+    name character varying(100) NOT NULL,
+    admin boolean NOT NULL,
+    auth_id character varying(30),
+    email character varying(255) NOT NULL,
     email_verification_code character varying(255),
     email_verification_code_created_at bigint,
     email_verified boolean NOT NULL,
-    mobile_phone character varying(255),
-    mobile_phone_verification_code character varying(255),
+    first_name character varying(25) NOT NULL,
+    last_login bigint,
+    last_name character varying(25) NOT NULL,
+    mobile_phone character varying(30),
+    mobile_phone_country_code integer,
+    mobile_phone_verification_code character varying(100),
     mobile_phone_verification_code_created_at bigint,
     mobile_phone_verified boolean NOT NULL,
+    suspended boolean NOT NULL,
+    two_factor boolean NOT NULL,
     hashed_password character varying(200) NOT NULL,
     reset_token character varying(30),
-    reset_token_ctime bigint
+    reset_token_ctime bigint,
+    tos_version integer
 );
 
 
@@ -61,7 +71,7 @@ CREATE TABLE cloud_os (
     ctime bigint NOT NULL,
     admin_uuid character varying(255),
     instance_json character varying(1024),
-    name character varying(20),
+    name character varying(30),
     running boolean NOT NULL,
     s3access_key character varying(255),
     s3secret_key character varying(255)
@@ -102,7 +112,7 @@ ALTER TABLE public.service_key OWNER TO cloudstead;
 -- Data for Name: admin; Type: TABLE DATA; Schema: public; Owner: cloudstead
 --
 
-COPY admin (uuid, ctime, email, email_verification_code, email_verification_code_created_at, email_verified, mobile_phone, mobile_phone_verification_code, mobile_phone_verification_code_created_at, mobile_phone_verified, hashed_password, reset_token, reset_token_ctime) FROM stdin;
+COPY admin (uuid, ctime, name, admin, auth_id, email, email_verification_code, email_verification_code_created_at, email_verified, first_name, last_login, last_name, mobile_phone, mobile_phone_country_code, mobile_phone_verification_code, mobile_phone_verification_code_created_at, mobile_phone_verified, suspended, two_factor, hashed_password, reset_token, reset_token_ctime, tos_version) FROM stdin;
 \.
 
 
@@ -131,6 +141,22 @@ COPY service_key (uuid, ctime, host, key) FROM stdin;
 
 
 --
+-- Name: admin_email_key; Type: CONSTRAINT; Schema: public; Owner: cloudstead; Tablespace: 
+--
+
+ALTER TABLE ONLY admin
+    ADD CONSTRAINT admin_email_key UNIQUE (email);
+
+
+--
+-- Name: admin_name_key; Type: CONSTRAINT; Schema: public; Owner: cloudstead; Tablespace: 
+--
+
+ALTER TABLE ONLY admin
+    ADD CONSTRAINT admin_name_key UNIQUE (name);
+
+
+--
 -- Name: admin_pkey; Type: CONSTRAINT; Schema: public; Owner: cloudstead; Tablespace: 
 --
 
@@ -144,6 +170,14 @@ ALTER TABLE ONLY admin
 
 ALTER TABLE ONLY cloud_os_event
     ADD CONSTRAINT cloud_os_event_pkey PRIMARY KEY (uuid);
+
+
+--
+-- Name: cloud_os_name_key; Type: CONSTRAINT; Schema: public; Owner: cloudstead; Tablespace: 
+--
+
+ALTER TABLE ONLY cloud_os
+    ADD CONSTRAINT cloud_os_name_key UNIQUE (name);
 
 
 --
