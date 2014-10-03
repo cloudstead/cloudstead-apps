@@ -10,13 +10,13 @@
         "packaging_copyright": "Copyright 2014 Cloudstead, Inc."
     },
 
-    "tarball": { "url": "http://cloudstead.io/downloads/appstore-server.tar.gz" },
+    "tarball": { "url": "http://cloudstead.io/downloads/cloudos-appstore-server.tar.gz" },
 
     "database": { "type": "postgresql", "here_schema": "appstore-server.sql" },
 
     "web": { "type": "apache", "mode": "proxy_service", "mount": "appstore" },
 
-    "templates": { ".appstore.env": "dot-appstore.env" },
+    "templates": { ".cloudos-appstore.env": "dot-cloudos-appstore.env" },
 
     "sysinit": [ "jrun" ],
 
