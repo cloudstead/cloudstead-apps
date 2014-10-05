@@ -30,6 +30,22 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: account_device; Type: TABLE; Schema: public; Owner: cloudstead; Tablespace: 
+--
+
+CREATE TABLE account_device (
+    uuid character varying(100) NOT NULL,
+    ctime bigint NOT NULL,
+    account character varying(255),
+    auth_time bigint,
+    device_id character varying(255),
+    device_name character varying(255)
+);
+
+
+ALTER TABLE public.account_device OWNER TO cloudstead;
+
+--
 -- Name: admin; Type: TABLE; Schema: public; Owner: cloudstead; Tablespace: 
 --
 
@@ -40,7 +56,7 @@ CREATE TABLE admin (
     admin boolean NOT NULL,
     auth_id character varying(30),
     email character varying(255) NOT NULL,
-    email_verification_code character varying(255),
+    email_verification_code character varying(100),
     email_verification_code_created_at bigint,
     email_verified boolean NOT NULL,
     first_name character varying(25) NOT NULL,
@@ -69,9 +85,9 @@ ALTER TABLE public.admin OWNER TO cloudstead;
 CREATE TABLE cloud_os (
     uuid character varying(100) NOT NULL,
     ctime bigint NOT NULL,
+    name character varying(30) NOT NULL,
     admin_uuid character varying(255),
     instance_json character varying(1024),
-    name character varying(30),
     running boolean NOT NULL,
     s3access_key character varying(255),
     s3secret_key character varying(255)
@@ -109,6 +125,14 @@ CREATE TABLE service_key (
 ALTER TABLE public.service_key OWNER TO cloudstead;
 
 --
+-- Data for Name: account_device; Type: TABLE DATA; Schema: public; Owner: cloudstead
+--
+
+COPY account_device (uuid, ctime, account, auth_time, device_id, device_name) FROM stdin;
+\.
+
+
+--
 -- Data for Name: admin; Type: TABLE DATA; Schema: public; Owner: cloudstead
 --
 
@@ -120,7 +144,7 @@ COPY admin (uuid, ctime, name, admin, auth_id, email, email_verification_code, e
 -- Data for Name: cloud_os; Type: TABLE DATA; Schema: public; Owner: cloudstead
 --
 
-COPY cloud_os (uuid, ctime, admin_uuid, instance_json, name, running, s3access_key, s3secret_key) FROM stdin;
+COPY cloud_os (uuid, ctime, name, admin_uuid, instance_json, running, s3access_key, s3secret_key) FROM stdin;
 \.
 
 
@@ -138,6 +162,22 @@ COPY cloud_os_event (uuid, ctime, cloud_os_uuid, message_key) FROM stdin;
 
 COPY service_key (uuid, ctime, host, key) FROM stdin;
 \.
+
+
+--
+-- Name: account_device_account_device_id_key; Type: CONSTRAINT; Schema: public; Owner: cloudstead; Tablespace: 
+--
+
+ALTER TABLE ONLY account_device
+    ADD CONSTRAINT account_device_account_device_id_key UNIQUE (account, device_id);
+
+
+--
+-- Name: account_device_pkey; Type: CONSTRAINT; Schema: public; Owner: cloudstead; Tablespace: 
+--
+
+ALTER TABLE ONLY account_device
+    ADD CONSTRAINT account_device_pkey PRIMARY KEY (uuid);
 
 
 --

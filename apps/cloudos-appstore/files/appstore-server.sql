@@ -30,7 +30,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: app_footprint; Type: TABLE; Schema: public; Owner: appstore; Tablespace: 
+-- Name: app_footprint; Type: TABLE; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 CREATE TABLE app_footprint (
@@ -42,10 +42,10 @@ CREATE TABLE app_footprint (
 );
 
 
-ALTER TABLE public.app_footprint OWNER TO appstore;
+ALTER TABLE public.app_footprint OWNER TO cloudos_appstore_test;
 
 --
--- Name: app_price; Type: TABLE; Schema: public; Owner: appstore; Tablespace: 
+-- Name: app_price; Type: TABLE; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 CREATE TABLE app_price (
@@ -59,10 +59,10 @@ CREATE TABLE app_price (
 );
 
 
-ALTER TABLE public.app_price OWNER TO appstore;
+ALTER TABLE public.app_price OWNER TO cloudos_appstore_test;
 
 --
--- Name: app_store_account; Type: TABLE; Schema: public; Owner: appstore; Tablespace: 
+-- Name: app_store_account; Type: TABLE; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 CREATE TABLE app_store_account (
@@ -78,10 +78,10 @@ CREATE TABLE app_store_account (
 );
 
 
-ALTER TABLE public.app_store_account OWNER TO appstore;
+ALTER TABLE public.app_store_account OWNER TO cloudos_appstore_test;
 
 --
--- Name: app_store_publisher; Type: TABLE; Schema: public; Owner: appstore; Tablespace: 
+-- Name: app_store_publisher; Type: TABLE; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 CREATE TABLE app_store_publisher (
@@ -92,10 +92,10 @@ CREATE TABLE app_store_publisher (
 );
 
 
-ALTER TABLE public.app_store_publisher OWNER TO appstore;
+ALTER TABLE public.app_store_publisher OWNER TO cloudos_appstore_test;
 
 --
--- Name: app_store_publisher_member; Type: TABLE; Schema: public; Owner: appstore; Tablespace: 
+-- Name: app_store_publisher_member; Type: TABLE; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 CREATE TABLE app_store_publisher_member (
@@ -106,10 +106,10 @@ CREATE TABLE app_store_publisher_member (
 );
 
 
-ALTER TABLE public.app_store_publisher_member OWNER TO appstore;
+ALTER TABLE public.app_store_publisher_member OWNER TO cloudos_appstore_test;
 
 --
--- Name: cloud_app; Type: TABLE; Schema: public; Owner: appstore; Tablespace: 
+-- Name: cloud_app; Type: TABLE; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 CREATE TABLE cloud_app (
@@ -122,10 +122,10 @@ CREATE TABLE cloud_app (
 );
 
 
-ALTER TABLE public.cloud_app OWNER TO appstore;
+ALTER TABLE public.cloud_app OWNER TO cloudos_appstore_test;
 
 --
--- Name: cloud_app_client; Type: TABLE; Schema: public; Owner: appstore; Tablespace: 
+-- Name: cloud_app_client; Type: TABLE; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 CREATE TABLE cloud_app_client (
@@ -138,10 +138,10 @@ CREATE TABLE cloud_app_client (
 );
 
 
-ALTER TABLE public.cloud_app_client OWNER TO appstore;
+ALTER TABLE public.cloud_app_client OWNER TO cloudos_appstore_test;
 
 --
--- Name: cloud_app_version; Type: TABLE; Schema: public; Owner: appstore; Tablespace: 
+-- Name: cloud_app_version; Type: TABLE; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 CREATE TABLE cloud_app_version (
@@ -165,10 +165,10 @@ CREATE TABLE cloud_app_version (
 );
 
 
-ALTER TABLE public.cloud_app_version OWNER TO appstore;
+ALTER TABLE public.cloud_app_version OWNER TO cloudos_appstore_test;
 
 --
--- Name: published_app; Type: TABLE; Schema: public; Owner: appstore; Tablespace: 
+-- Name: published_app; Type: TABLE; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 CREATE TABLE published_app (
@@ -193,10 +193,10 @@ CREATE TABLE published_app (
 );
 
 
-ALTER TABLE public.published_app OWNER TO appstore;
+ALTER TABLE public.published_app OWNER TO cloudos_appstore_test;
 
 --
--- Data for Name: app_footprint; Type: TABLE DATA; Schema: public; Owner: appstore
+-- Data for Name: app_footprint; Type: TABLE DATA; Schema: public; Owner: cloudos_appstore_test
 --
 
 COPY app_footprint (uuid, ctime, cloud_app, cpus, memory) FROM stdin;
@@ -204,7 +204,7 @@ COPY app_footprint (uuid, ctime, cloud_app, cpus, memory) FROM stdin;
 
 
 --
--- Data for Name: app_price; Type: TABLE DATA; Schema: public; Owner: appstore
+-- Data for Name: app_price; Type: TABLE DATA; Schema: public; Owner: cloudos_appstore_test
 --
 
 COPY app_price (uuid, ctime, cloud_app, initial_cost, iso_currency, monthly_fixed_cost, payment_required) FROM stdin;
@@ -212,34 +212,34 @@ COPY app_price (uuid, ctime, cloud_app, initial_cost, iso_currency, monthly_fixe
 
 
 --
--- Data for Name: app_store_account; Type: TABLE DATA; Schema: public; Owner: appstore
+-- Data for Name: app_store_account; Type: TABLE DATA; Schema: public; Owner: cloudos_appstore_test
 --
 
 COPY app_store_account (uuid, ctime, admin, consumer_tos, email, hashed_password, reset_token, reset_token_ctime, publisher_tos) FROM stdin;
-5248813b-c1eb-47ba-96ff-eece5e66fe76	1412351608722	t	\N	uZYOG1412351608344@example.com	$2a$04$KDgTHSSAmm2k3f/Mk6Kre.b7D9N7qZuuaEnduN0WSUSs0J9UJ1s12	\N	\N	1
+68617e9d-d84f-43c0-b6b1-08e64b6abc67	1412545230038	t	\N	9NlSW1412545229712@example.com	$2a$04$WQERqwgGVt1abAw82FGP5.NSqn0F.rKfRR6eTrBpXWO2AifVu171.	\N	\N	1
 \.
 
 
 --
--- Data for Name: app_store_publisher; Type: TABLE DATA; Schema: public; Owner: appstore
+-- Data for Name: app_store_publisher; Type: TABLE DATA; Schema: public; Owner: cloudos_appstore_test
 --
 
 COPY app_store_publisher (uuid, ctime, name, owner) FROM stdin;
-5248813b-c1eb-47ba-96ff-eece5e66fe76	1412351608790	fzUNmS7tIy4JsEPjCBLL	5248813b-c1eb-47ba-96ff-eece5e66fe76
+68617e9d-d84f-43c0-b6b1-08e64b6abc67	1412545230092	urUxfCZoUW9hZkJ8Tc80	68617e9d-d84f-43c0-b6b1-08e64b6abc67
 \.
 
 
 --
--- Data for Name: app_store_publisher_member; Type: TABLE DATA; Schema: public; Owner: appstore
+-- Data for Name: app_store_publisher_member; Type: TABLE DATA; Schema: public; Owner: cloudos_appstore_test
 --
 
 COPY app_store_publisher_member (uuid, ctime, account, publisher) FROM stdin;
-5f28e4f8-232c-4e83-8ec5-2221c9dd3f00	1412351608802	5248813b-c1eb-47ba-96ff-eece5e66fe76	5248813b-c1eb-47ba-96ff-eece5e66fe76
+445128b2-4e8f-40fc-9190-c532fb3df32c	1412545230100	68617e9d-d84f-43c0-b6b1-08e64b6abc67	68617e9d-d84f-43c0-b6b1-08e64b6abc67
 \.
 
 
 --
--- Data for Name: cloud_app; Type: TABLE DATA; Schema: public; Owner: appstore
+-- Data for Name: cloud_app; Type: TABLE DATA; Schema: public; Owner: cloudos_appstore_test
 --
 
 COPY cloud_app (uuid, ctime, active_version, author, name, publisher) FROM stdin;
@@ -247,7 +247,7 @@ COPY cloud_app (uuid, ctime, active_version, author, name, publisher) FROM stdin
 
 
 --
--- Data for Name: cloud_app_client; Type: TABLE DATA; Schema: public; Owner: appstore
+-- Data for Name: cloud_app_client; Type: TABLE DATA; Schema: public; Owner: cloudos_appstore_test
 --
 
 COPY cloud_app_client (uuid, ctime, client_url, client_url_sha, cloud_app, type) FROM stdin;
@@ -255,7 +255,7 @@ COPY cloud_app_client (uuid, ctime, client_url, client_url_sha, cloud_app, type)
 
 
 --
--- Data for Name: cloud_app_version; Type: TABLE DATA; Schema: public; Owner: appstore
+-- Data for Name: cloud_app_version; Type: TABLE DATA; Schema: public; Owner: cloudos_appstore_test
 --
 
 COPY cloud_app_version (uuid, ctime, app, author, description, large_icon_url, large_icon_url_sha, metadata, small_icon_url, small_icon_url_sha, previous_version, server_config_url, server_config_url_sha, status, major, minor, patch) FROM stdin;
@@ -263,7 +263,7 @@ COPY cloud_app_version (uuid, ctime, app, author, description, large_icon_url, l
 
 
 --
--- Data for Name: published_app; Type: TABLE DATA; Schema: public; Owner: appstore
+-- Data for Name: published_app; Type: TABLE DATA; Schema: public; Owner: cloudos_appstore_test
 --
 
 COPY published_app (uuid, ctime, app, author, description, large_icon_url, large_icon_url_sha, metadata, small_icon_url, small_icon_url_sha, previous_version, server_config_url, server_config_url_sha, status, major, minor, patch, approved_by) FROM stdin;
@@ -271,7 +271,7 @@ COPY published_app (uuid, ctime, app, author, description, large_icon_url, large
 
 
 --
--- Name: app_footprint_cloud_app_key; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: app_footprint_cloud_app_key; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY app_footprint
@@ -279,7 +279,7 @@ ALTER TABLE ONLY app_footprint
 
 
 --
--- Name: app_footprint_pkey; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: app_footprint_pkey; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY app_footprint
@@ -287,7 +287,7 @@ ALTER TABLE ONLY app_footprint
 
 
 --
--- Name: app_price_cloud_app_iso_currency_key; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: app_price_cloud_app_iso_currency_key; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY app_price
@@ -295,7 +295,7 @@ ALTER TABLE ONLY app_price
 
 
 --
--- Name: app_price_pkey; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: app_price_pkey; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY app_price
@@ -303,7 +303,7 @@ ALTER TABLE ONLY app_price
 
 
 --
--- Name: app_store_account_email_key; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: app_store_account_email_key; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY app_store_account
@@ -311,7 +311,7 @@ ALTER TABLE ONLY app_store_account
 
 
 --
--- Name: app_store_account_pkey; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: app_store_account_pkey; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY app_store_account
@@ -319,7 +319,7 @@ ALTER TABLE ONLY app_store_account
 
 
 --
--- Name: app_store_publisher_member_account_key; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: app_store_publisher_member_account_key; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY app_store_publisher_member
@@ -327,7 +327,7 @@ ALTER TABLE ONLY app_store_publisher_member
 
 
 --
--- Name: app_store_publisher_member_pkey; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: app_store_publisher_member_pkey; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY app_store_publisher_member
@@ -335,7 +335,7 @@ ALTER TABLE ONLY app_store_publisher_member
 
 
 --
--- Name: app_store_publisher_member_publisher_account_key; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: app_store_publisher_member_publisher_account_key; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY app_store_publisher_member
@@ -343,7 +343,7 @@ ALTER TABLE ONLY app_store_publisher_member
 
 
 --
--- Name: app_store_publisher_member_publisher_key; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: app_store_publisher_member_publisher_key; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY app_store_publisher_member
@@ -351,7 +351,7 @@ ALTER TABLE ONLY app_store_publisher_member
 
 
 --
--- Name: app_store_publisher_name_key; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: app_store_publisher_name_key; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY app_store_publisher
@@ -359,7 +359,7 @@ ALTER TABLE ONLY app_store_publisher
 
 
 --
--- Name: app_store_publisher_owner_key; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: app_store_publisher_owner_key; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY app_store_publisher
@@ -367,7 +367,7 @@ ALTER TABLE ONLY app_store_publisher
 
 
 --
--- Name: app_store_publisher_pkey; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: app_store_publisher_pkey; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY app_store_publisher
@@ -375,7 +375,7 @@ ALTER TABLE ONLY app_store_publisher
 
 
 --
--- Name: cloud_app_client_cloud_app_key; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: cloud_app_client_cloud_app_key; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY cloud_app_client
@@ -383,7 +383,7 @@ ALTER TABLE ONLY cloud_app_client
 
 
 --
--- Name: cloud_app_client_pkey; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: cloud_app_client_pkey; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY cloud_app_client
@@ -391,7 +391,7 @@ ALTER TABLE ONLY cloud_app_client
 
 
 --
--- Name: cloud_app_name_key; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: cloud_app_name_key; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY cloud_app
@@ -399,7 +399,7 @@ ALTER TABLE ONLY cloud_app
 
 
 --
--- Name: cloud_app_pkey; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: cloud_app_pkey; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY cloud_app
@@ -407,7 +407,7 @@ ALTER TABLE ONLY cloud_app
 
 
 --
--- Name: cloud_app_version_pkey; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: cloud_app_version_pkey; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY cloud_app_version
@@ -415,7 +415,7 @@ ALTER TABLE ONLY cloud_app_version
 
 
 --
--- Name: published_app_pkey; Type: CONSTRAINT; Schema: public; Owner: appstore; Tablespace: 
+-- Name: published_app_pkey; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
 --
 
 ALTER TABLE ONLY published_app
