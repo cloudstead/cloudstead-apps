@@ -216,7 +216,7 @@ COPY app_price (uuid, ctime, cloud_app, initial_cost, iso_currency, monthly_fixe
 --
 
 COPY app_store_account (uuid, ctime, admin, consumer_tos, email, hashed_password, reset_token, reset_token_ctime, publisher_tos) FROM stdin;
-68617e9d-d84f-43c0-b6b1-08e64b6abc67	1412545230038	t	\N	9NlSW1412545229712@example.com	$2a$04$WQERqwgGVt1abAw82FGP5.NSqn0F.rKfRR6eTrBpXWO2AifVu171.	\N	\N	1
+58b81885-32b5-48e6-9d3b-b19c82b8d1dc	1412600016773	t	\N	ONsOd1412600016429@example.com	$2a$04$0G82pNt6GGWDhXWUKRpucO5BfxDe9oSfcv2putkXhVbnj6RtDa412	\N	\N	1
 \.
 
 
@@ -225,7 +225,7 @@ COPY app_store_account (uuid, ctime, admin, consumer_tos, email, hashed_password
 --
 
 COPY app_store_publisher (uuid, ctime, name, owner) FROM stdin;
-68617e9d-d84f-43c0-b6b1-08e64b6abc67	1412545230092	urUxfCZoUW9hZkJ8Tc80	68617e9d-d84f-43c0-b6b1-08e64b6abc67
+58b81885-32b5-48e6-9d3b-b19c82b8d1dc	1412600016837	oX34b3CLsPTjlndMeCYx	58b81885-32b5-48e6-9d3b-b19c82b8d1dc
 \.
 
 
@@ -234,7 +234,7 @@ COPY app_store_publisher (uuid, ctime, name, owner) FROM stdin;
 --
 
 COPY app_store_publisher_member (uuid, ctime, account, publisher) FROM stdin;
-445128b2-4e8f-40fc-9190-c532fb3df32c	1412545230100	68617e9d-d84f-43c0-b6b1-08e64b6abc67	68617e9d-d84f-43c0-b6b1-08e64b6abc67
+aafdf327-e456-4ba1-942b-86a8404cd75d	1412600016847	58b81885-32b5-48e6-9d3b-b19c82b8d1dc	58b81885-32b5-48e6-9d3b-b19c82b8d1dc
 \.
 
 

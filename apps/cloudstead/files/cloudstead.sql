@@ -60,18 +60,15 @@ CREATE TABLE admin (
     email_verification_code_created_at bigint,
     email_verified boolean NOT NULL,
     first_name character varying(25) NOT NULL,
+    hashed_password character varying(200) NOT NULL,
+    reset_token character varying(30),
+    reset_token_ctime bigint,
     last_login bigint,
     last_name character varying(25) NOT NULL,
     mobile_phone character varying(30),
     mobile_phone_country_code integer,
-    mobile_phone_verification_code character varying(100),
-    mobile_phone_verification_code_created_at bigint,
-    mobile_phone_verified boolean NOT NULL,
     suspended boolean NOT NULL,
     two_factor boolean NOT NULL,
-    hashed_password character varying(200) NOT NULL,
-    reset_token character varying(30),
-    reset_token_ctime bigint,
     tos_version integer
 );
 
@@ -136,7 +133,7 @@ COPY account_device (uuid, ctime, account, auth_time, device_id, device_name) FR
 -- Data for Name: admin; Type: TABLE DATA; Schema: public; Owner: cloudstead
 --
 
-COPY admin (uuid, ctime, name, admin, auth_id, email, email_verification_code, email_verification_code_created_at, email_verified, first_name, last_login, last_name, mobile_phone, mobile_phone_country_code, mobile_phone_verification_code, mobile_phone_verification_code_created_at, mobile_phone_verified, suspended, two_factor, hashed_password, reset_token, reset_token_ctime, tos_version) FROM stdin;
+COPY admin (uuid, ctime, name, admin, auth_id, email, email_verification_code, email_verification_code_created_at, email_verified, first_name, hashed_password, reset_token, reset_token_ctime, last_login, last_name, mobile_phone, mobile_phone_country_code, suspended, two_factor, tos_version) FROM stdin;
 \.
 
 
