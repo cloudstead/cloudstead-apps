@@ -24,6 +24,7 @@
                 "wildcard_cert_name",
                 "sendgrid.user", "sendgrid.password",
                 "authy.user", "authy.base_uri",
+                "authy_admin.user", "authy_admin.base_uri",
                 "cloudos_dns.user", "cloudos_dns.password"
             ]
         }
