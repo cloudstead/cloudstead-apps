@@ -34,7 +34,7 @@
 
     "tarball": { "url": "@databag[init][server_tarball]" },
 
-    "database": { "type": "postgresql", "here_schema": "cloudstead.sql" },
+    "database": { "type": "postgresql", "schema": "@files/cloudstead.sql" },
 
     "web": { "type": "apache", "mode": "proxy_root", "ssl_cert_name": "@databag[base][ssl_cert_name]" },
 
