@@ -15,7 +15,7 @@
         "shasum": "c1f0bfbdb6fb626272f239b055b3a794bf422c13efab0e5b0ce30b2cf1b42c82"
     },
 
-    "database": { "type": "postgresql", "schema": "@files/appstore-server.sql" },
+    "database": { "type": "postgresql" },
 
     "web": { "type": "apache", "mode": "proxy_service", "mount": "appstore" },
 
