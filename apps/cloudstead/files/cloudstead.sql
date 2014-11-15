@@ -69,6 +69,7 @@ CREATE TABLE admin (
     mobile_phone_country_code integer,
     suspended boolean NOT NULL,
     two_factor boolean NOT NULL,
+    max_cloudsteads integer NOT NULL,
     tos_version integer
 );
 
@@ -82,12 +83,13 @@ ALTER TABLE public.admin OWNER TO cloudstead;
 CREATE TABLE cloud_os (
     uuid character varying(100) NOT NULL,
     ctime bigint NOT NULL,
-    name character varying(30) NOT NULL,
+    name character varying(100) NOT NULL,
     admin_uuid character varying(255),
     instance_json character varying(1024),
     running boolean NOT NULL,
     s3access_key character varying(255),
-    s3secret_key character varying(255)
+    s3secret_key character varying(255),
+    ucid character varying(100) NOT NULL
 );
 
 
@@ -133,7 +135,7 @@ COPY account_device (uuid, ctime, account, auth_time, device_id, device_name) FR
 -- Data for Name: admin; Type: TABLE DATA; Schema: public; Owner: cloudstead
 --
 
-COPY admin (uuid, ctime, name, admin, auth_id, email, email_verification_code, email_verification_code_created_at, email_verified, first_name, hashed_password, reset_token, reset_token_ctime, last_login, last_name, mobile_phone, mobile_phone_country_code, suspended, two_factor, tos_version) FROM stdin;
+COPY admin (uuid, ctime, name, admin, auth_id, email, email_verification_code, email_verification_code_created_at, email_verified, first_name, hashed_password, reset_token, reset_token_ctime, last_login, last_name, mobile_phone, mobile_phone_country_code, suspended, two_factor, max_cloudsteads, tos_version) FROM stdin;
 \.
 
 
@@ -141,7 +143,7 @@ COPY admin (uuid, ctime, name, admin, auth_id, email, email_verification_code, e
 -- Data for Name: cloud_os; Type: TABLE DATA; Schema: public; Owner: cloudstead
 --
 
-COPY cloud_os (uuid, ctime, name, admin_uuid, instance_json, running, s3access_key, s3secret_key) FROM stdin;
+COPY cloud_os (uuid, ctime, name, admin_uuid, instance_json, running, s3access_key, s3secret_key, ucid) FROM stdin;
 \.
 
 
@@ -223,6 +225,14 @@ ALTER TABLE ONLY cloud_os
 
 ALTER TABLE ONLY cloud_os
     ADD CONSTRAINT cloud_os_pkey PRIMARY KEY (uuid);
+
+
+--
+-- Name: cloud_os_ucid_key; Type: CONSTRAINT; Schema: public; Owner: cloudstead; Tablespace: 
+--
+
+ALTER TABLE ONLY cloud_os
+    ADD CONSTRAINT cloud_os_ucid_key UNIQUE (ucid);
 
 
 --

@@ -41,19 +41,24 @@
 
     "templates": {
         ".cloudstead.env": "dot-cloudstead.env",
-        "/usr/sbin/dns-admin.sh": "_",
-        "install_ssl_certs.sh": "_"
+        "install_ssl_certs.sh": "_",
+        "/usr/bin/cstead": "_"
+    },
+
+    "copy": {
+        "@files/dot-cstead-commands": "@name/.cstead-commands"
     },
 
     "perms": {
         "install_ssl_certs.sh": { "chown": "@run_as.root", "perms": "700" },
-        "/usr/sbin/dns-admin.sh": { "chown": "root.root", "perms": "700" }
+        "/usr/bin/cstead": { "chown": "@run_as.root", "perms": "750" }
     },
 
     "post_install": [
         { "exec": "@home/install_ssl_certs.sh" },
-        { "exec": "/usr/sbin/dns-admin.sh --operation add --record a --fqdn @hostname --value @ipaddress --ttl 14400" }
+        { "exec": "/usr/bin/cstead dns --operation add --record a --fqdn @hostname --value @ipaddress --ttl 14400" },
+        { "exec": "/usr/bin/cstead accode @databag[init][activation][name] @databag[init][activation][quantity] @databag[init][activation][expiration_days]" }
     ],
 
-    "sysinit": [ "jrun" ]
+    "sysinit": [ "jrun:cloudos.cloudstead.server.CloudsteadServer" ]
 }
