@@ -83,7 +83,7 @@ ALTER TABLE public.admin OWNER TO cloudstead;
 CREATE TABLE cloud_os (
     uuid character varying(100) NOT NULL,
     ctime bigint NOT NULL,
-    name character varying(100) NOT NULL,
+    name character varying(30) NOT NULL,
     admin_uuid character varying(255),
     instance_json character varying(1024),
     running boolean NOT NULL,
