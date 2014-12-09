@@ -19,7 +19,18 @@
 
     "web": { "type": "apache", "mode": "proxy_service", "mount": "appstore" },
 
-    "templates": { ".cloudos-appstore.env": "dot-cloudos-appstore.env" },
+    "templates": {
+        ".cloudos-appstore.env": "dot-cloudos-appstore.env",
+        "/usr/bin/cas": "_"
+    },
+
+    "copy": {
+        "@files/dot-cas-commands": "@name/.cas-commands"
+    },
+
+    "perms": {
+        "/usr/bin/cas": { "chown": "@run_as.root", "perms": "750" }
+    },
 
     "sysinit": [ "jrun" ],
 
