@@ -83,7 +83,7 @@ ALTER TABLE public.admin OWNER TO cloudstead;
 CREATE TABLE cloud_os (
     uuid character varying(100) NOT NULL,
     ctime bigint NOT NULL,
-    name character varying(30) NOT NULL,
+    name character varying(100) NOT NULL,
     admin_uuid character varying(255),
     instance_json character varying(1024),
     running boolean NOT NULL,
@@ -116,8 +116,8 @@ ALTER TABLE public.cloud_os_event OWNER TO cloudstead;
 CREATE TABLE service_key (
     uuid character varying(100) NOT NULL,
     ctime bigint NOT NULL,
-    host character varying(255),
-    key character varying(255)
+    host character varying(1024) NOT NULL,
+    key character varying(4096) NOT NULL
 );
 
 
@@ -233,6 +233,14 @@ ALTER TABLE ONLY cloud_os
 
 ALTER TABLE ONLY cloud_os
     ADD CONSTRAINT cloud_os_ucid_key UNIQUE (ucid);
+
+
+--
+-- Name: service_key_key_key; Type: CONSTRAINT; Schema: public; Owner: cloudstead; Tablespace: 
+--
+
+ALTER TABLE ONLY service_key
+    ADD CONSTRAINT service_key_key_key UNIQUE (key);
 
 
 --
