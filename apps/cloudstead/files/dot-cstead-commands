@@ -1,4 +1,4 @@
-accode:    cloudos.cloudstead.main.ActivationCodeMain
+accode:    org.cobbzilla.wizard.cache.redis.ActivationCodeService
 dns:       cloudos.dns.main.DnsMain
 dns-admin: cloudos.dns.main.DnsAdminMain
 json:      org.cobbzilla.util.json.main.JsonEditor
