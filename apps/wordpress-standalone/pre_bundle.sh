@@ -28,4 +28,5 @@ cat ${WP_MANIFEST} \
   | ${JSON_EDIT} -o delete -p auth \
   | ${JSON_EDIT} -o delete -p "templates.'@doc_root/wp-content/plugins/cos_auth.php'" \
   | ${JSON_EDIT} -o delete -p "post_install[0]" \
+  | ${JSON_EDIT} -o write -p "web.mode" -v '"vhost_root"' \
 > ${THISDIR}/cloudos-manifest.json || die "Error editing json"
