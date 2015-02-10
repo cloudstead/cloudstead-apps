@@ -29,4 +29,8 @@ cat ${PW_MANIFEST} \
   | ${JSON_EDIT} -o delete -p assets \
   | ${JSON_EDIT} -o delete -p copy \
   | ${JSON_EDIT} -o delete -p auth \
+  | ${JSON_EDIT} -o write -p databags -v \
+    "[ { \"name\": \"init\", \"items\": [ \"admin.login\", \"admin.password\", \"admin.email\" ] } ]" \
+  | ${JSON_EDIT} -o write -p post_install -v \
+    "[ { \"exec\": \"@files/piwik_user_add.sh @dbname @databag[init][admin][login] @databag[init][admin][password] @databag[init][admin][email] 1\" } ]" \
 > ${THISDIR}/cloudos-manifest.json || die "Error editing json"
