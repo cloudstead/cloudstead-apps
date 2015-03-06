@@ -49,6 +49,8 @@
         "@files/dot-cstead-commands": "@name/.cstead-commands"
     },
 
+    "dirs": [ "@name/cloudos-chef-staging" ],
+
     "perms": {
         "install_ssl_certs.sh": { "chown": "@run_as.root", "perms": "700" },
         "/usr/bin/cstead": { "chown": "@run_as.root", "perms": "750" }
