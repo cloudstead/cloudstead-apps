@@ -13,3 +13,12 @@ target/maven-archiver
 target
 .DS_Store
 chef-repo
+apps/owa-standalone/cloudos-manifest.json
+apps/owa-standalone/files/
+apps/owa-standalone/templates/
+apps/piwik-standalone/cloudos-manifest.json
+apps/piwik-standalone/files/
+apps/piwik-standalone/templates/
+apps/wordpress-standalone/cloudos-manifest.json
+apps/wordpress-standalone/files/
+apps/wordpress-standalone/templates/wp-config.php.erb
