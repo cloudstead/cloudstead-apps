@@ -10,7 +10,7 @@
         "packaging_copyright": "Copyright 2014 Cloudstead, Inc."
     },
 
-    "databags": [
+    "config": [
         {
             "name": "base",
             "items": [ "hostname", "parent_domain", "ssl_cert_name" ]
@@ -33,9 +33,9 @@
 
     "packages": [ "memcached", "redis-server" ],
 
-    "tarball": { "url": "@databag[init][server_tarball]" },
+    "tarball": { "url": "@config[init][server_tarball]" },
 
-    "database": { "type": "postgresql" },
+    "database": { "type": "postgresql", "schema_version": "1.0" },
 
     "web": { "type": "apache", "mode": "proxy_service" },
 
@@ -44,6 +44,8 @@
         "install_ssl_certs.sh": "_",
         "/usr/bin/cstead": "_"
     },
+
+    "symlinks": { "/usr/bin/cos": "/usr/bin/cstead" },
 
     "copy": {
         "@files/dot-cstead-commands": "@name/.cstead-commands"
@@ -59,7 +61,7 @@
     "post_install": [
         { "exec": "@home/install_ssl_certs.sh" },
         { "exec": "/usr/bin/cstead dns --operation add --record a --fqdn @hostname --value @ipaddress --ttl 14400" },
-        { "exec": "/usr/bin/cstead accode @databag[init][activation][name] @databag[init][activation][quantity] @databag[init][activation][expiration_days]" }
+        { "exec": "/usr/bin/cstead accode @config[init][activation][name] @config[init][activation][quantity] @config[init][activation][expiration_days]" }
     ],
 
     "sysinit": [ "jrun:cloudos.cloudstead.server.CloudsteadServer" ]

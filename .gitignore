@@ -21,4 +21,5 @@ apps/piwik-standalone/files/
 apps/piwik-standalone/templates/
 apps/wordpress-standalone/cloudos-manifest.json
 apps/wordpress-standalone/files/
+apps/wordpress-standalone/config/
 apps/wordpress-standalone/templates/wp-config.php.erb
