@@ -84,17 +84,17 @@ ALTER TABLE public.admin OWNER TO cloudstead;
 CREATE TABLE cloud_os (
     uuid character varying(100) NOT NULL,
     ctime bigint NOT NULL,
-    name character varying(100) NOT NULL,
+    name character varying(30) NOT NULL,
     additional_apps character varying(1024),
     admin_uuid character varying(255),
-    app_bundle integer,
-    edition integer,
+    app_bundle character varying(30) NOT NULL,
+    edition character varying(30) NOT NULL,
     instance_json character varying(2048),
     last_state_change bigint NOT NULL,
-    region integer,
+    region character varying(30) NOT NULL,
     s3access_key character varying(255),
     s3secret_key character varying(255),
-    state integer,
+    state character varying(30) NOT NULL,
     ucid character varying(100) NOT NULL
 );
 
