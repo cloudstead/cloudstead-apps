@@ -94,6 +94,7 @@ CREATE TABLE cloud_os (
     region character varying(30) NOT NULL,
     s3access_key character varying(255),
     s3secret_key character varying(255),
+    staging_dir character varying(1024),
     state character varying(30) NOT NULL,
     ucid character varying(100) NOT NULL
 );
@@ -149,7 +150,7 @@ COPY admin (uuid, ctime, name, admin, auth_id, email, email_verification_code, e
 -- Data for Name: cloud_os; Type: TABLE DATA; Schema: public; Owner: cloudstead
 --
 
-COPY cloud_os (uuid, ctime, name, additional_apps, admin_uuid, app_bundle, edition, instance_json, last_state_change, region, s3access_key, s3secret_key, state, ucid) FROM stdin;
+COPY cloud_os (uuid, ctime, name, additional_apps, admin_uuid, app_bundle, edition, instance_json, last_state_change, region, s3access_key, s3secret_key, staging_dir, state, ucid) FROM stdin;
 \.
 
 
@@ -231,6 +232,14 @@ ALTER TABLE ONLY cloud_os
 
 ALTER TABLE ONLY cloud_os
     ADD CONSTRAINT cloud_os_pkey PRIMARY KEY (uuid);
+
+
+--
+-- Name: cloud_os_staging_dir_key; Type: CONSTRAINT; Schema: public; Owner: cloudstead; Tablespace: 
+--
+
+ALTER TABLE ONLY cloud_os
+    ADD CONSTRAINT cloud_os_staging_dir_key UNIQUE (staging_dir);
 
 
 --
