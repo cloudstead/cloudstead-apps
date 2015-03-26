@@ -1,4 +1,6 @@
 RewriteEngine On
+# don't rewrite things that shouldn't be rewritten
+IncludeOptional rewrite-rules-enabled/
 RewriteBase /
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f

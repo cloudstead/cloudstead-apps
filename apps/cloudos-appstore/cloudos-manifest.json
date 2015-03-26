@@ -34,7 +34,7 @@
 
     "sysinit": [ "jrun" ],
 
-    "plugin": "cloudos.appstore.model.ConfigurableAppRuntime",
+    "validation": { "service_url": "/auth" },
 
     "auth": {}
 }
