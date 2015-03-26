@@ -37,7 +37,7 @@
 
     "database": { "type": "postgresql", "schema_version": "1.0" },
 
-    "web": { "type": "apache", "mode": "proxy_service", "doc_root": "@name/site" },
+    "web": { "type": "apache", "mode": "proxy_service" },
 
     "templates": {
         ".cloudstead.env": "dot-cloudstead.env",
