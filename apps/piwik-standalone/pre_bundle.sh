@@ -20,8 +20,7 @@ JSON_EDIT="java -cp ${CS_JAR} org.cobbzilla.util.json.main.JsonEditor"
 rsync -avzc --exclude="target" ${PW_APP_DIR}/* ${THISDIR}/
 rm -rf \
   ${THISDIR}/files/httpful.phar \
-  ${THISDIR}/files/CloudosAuthentication \
-  ${THISDIR}/templates/*
+  ${THISDIR}/files/CloudosAuthentication
 
 cat ${PW_APP_DIR}/templates/config.ini.php.erb | grep -v CloudosAuthentication > ${THISDIR}/templates/config.ini.php.erb
 

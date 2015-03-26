@@ -47,11 +47,15 @@
 
     "symlinks": { "/usr/bin/cos": "/usr/bin/cstead" },
 
-    "copy": {
-        "@files/dot-cstead-commands": "@name/.cstead-commands"
-    },
+    "dirs": [
+        "@name/cloudos-chef/data_files",
+        "@name/cloudos-chef-staging"
+    ],
 
-    "dirs": [ "@name/cloudos-chef-staging" ],
+    "copy": {
+        "@files/dot-cstead-commands": "@name/.cstead-commands",
+        "/opt/cloudos/geoip": "@name/cloudos-chef/data_files/"
+    },
 
     "perms": {
         "install_ssl_certs.sh": { "chown": "@run_as.root", "perms": "700" },
