@@ -21,6 +21,7 @@
                 "aws_access_key", "aws_secret_key", "aws_iam_group", "s3_bucket",
                 "data_key", "cloud_storage_user",
                 "do_client_id", "do_api_key",
+                "rackspace_client_id", "rackspace_api_key",
                 "wildcard_cert_name",
                 "sendgrid.user", "sendgrid.password",
                 "authy.user", "authy.base_uri",

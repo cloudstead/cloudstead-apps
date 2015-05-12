@@ -1,1 +1,6 @@
-search:    cloudos.appstore.main.AppStoreQueryMain
+search:     cloudos.appstore.main.AppStoreQueryMain
+account:    cloudos.appstore.main.AppStoreAccountMain
+publisher:  cloudos.appstore.main.AppStorePublisherMain
+member:     cloudos.appstore.main.AppStoreMemberMain
+apps:       cloudos.appstore.main.AppsMain
+version:    cloudos.appstore.main.AppVersionsMain

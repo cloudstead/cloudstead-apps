@@ -10,6 +10,11 @@
         "packaging_copyright": "Copyright 2014 Cloudstead, Inc."
     },
 
+    "config": [ {
+        "name": "init",
+        "items": [ "sendgrid.user", "sendgrid.password" ]
+    } ],
+
     "tarball": {
         "url": "http://cloudstead.io/downloads/cloudos-appstore-server.tar.gz",
         "shasum": "c1f0bfbdb6fb626272f239b055b3a794bf422c13efab0e5b0ce30b2cf1b42c82"

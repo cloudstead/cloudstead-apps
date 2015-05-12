@@ -22,6 +22,23 @@ fi
 CMD_LIST="${BASE}/.cas-commands"
 all_commands=$(cat ${CMD_LIST} | awk '{print $1}' | tr -d ':' | tr '\n' ' ')
 
+debug="${1}"
+if [ "x${debug}" = "xdebug" ] ; then
+  shift
+  ARG_LEN=$(echo -n "${1}" | wc -c)
+  ARG_NUMERIC_LEN=$(echo -n "${1}" | tr -dc [:digit:] | wc -c)  # strip all non-digits
+  if [ ${ARG_LEN} -eq ${ARG_NUMERIC_LEN} ] ; then
+    # Second arg is the debug port
+    DEBUG_PORT="${1}"
+    shift
+  else
+    DEBUG_PORT=5007
+  fi
+  debug="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=${DEBUG_PORT}"
+else
+  debug=""
+fi
+
 command="${1}"
 if [ -z "${command}" ] ; then
   die "No command given. Use one of these: ${all_commands}"
@@ -33,4 +50,4 @@ if [ -z "${class}" ] ; then
   die "$0 doesn't understand ${command}. Use one of these: ${all_commands}"
 fi
 
-exec java -cp ${JAR} ${class} "$@"
+exec java ${debug} -cp ${JAR} ${class} "$@"
