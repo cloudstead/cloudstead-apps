@@ -41,7 +41,7 @@
         "type": "postgresql",
         "schema_version": "1.0",
         "inserts": [
-            { "sql": "INSERT INTO admin (name, uuid, email, hashed_password, admin, ctime, email_verified, first_name, last_name, mobile_phone_country_code, mobile_phone, suspended, two_factor, max_cloudsteads) VALUES ('admin','admin','@config[init][admin][email]','@config[init][admin][hashed_password]', true, @now_millis, true, 'admin', 'admin', 1, '12345678', false, false, 10000)",
+            { "sql": "INSERT INTO admin (name, uuid, email, hashed_password, admin, ctime, email_verified, first_name, last_name, mobile_phone_country_code, mobile_phone, suspended, two_factor, max_cloudsteads) VALUES ('admin','admin','@config[init][admin][email]','@bcrypt(@config[init][admin][password], 12)', true, @now_millis, true, 'admin', 'admin', 1, '12345678', false, false, 10000)",
               "unless": "SELECT COUNT(*) FROM admin WHERE email='@config[init][admin][email]'" }
         ]
     },
