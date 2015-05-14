@@ -23,6 +23,7 @@
                 "do_client_id", "do_api_key",
                 "rackspace_client_id", "rackspace_api_key",
                 "wildcard_cert_name",
+                "admin.email", "admin.password",
                 "sendgrid.user", "sendgrid.password",
                 "authy.user", "authy.base_uri",
                 "authy_admin.user", "authy_admin.base_uri",
@@ -36,7 +37,14 @@
 
     "tarball": { "url": "@config[init][server_tarball]" },
 
-    "database": { "type": "postgresql", "schema_version": "1.0" },
+    "database": {
+        "type": "postgresql",
+        "schema_version": "1.0",
+        "inserts": [
+            { "sql": "INSERT INTO admin (name, uuid, email, hashed_password, admin, ctime, email_verified, first_name, last_name, mobile_phone_country_code, mobile_phone, suspended, two_factor, max_cloudsteads) VALUES ('admin','admin','@config[init][admin][email]','@config[init][admin][hashed_password]', true, @now_millis, true, 'admin', 'admin', 1, '12345678', false, false, 10000)",
+              "unless": "SELECT COUNT(*) FROM admin WHERE email='@config[init][admin][email]'" }
+        ]
+    },
 
     "web": { "type": "apache", "mode": "proxy_service" },
 
