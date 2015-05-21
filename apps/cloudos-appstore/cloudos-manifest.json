@@ -12,7 +12,8 @@
 
     "config": [ {
         "name": "init",
-        "items": [ "sendgrid.user", "sendgrid.password" ]
+        "items": [ "admin.name", "admin.password", "admin.email",
+                   "sendgrid.user", "sendgrid.password" ]
     } ],
 
     "tarball": {
@@ -20,7 +21,14 @@
         "shasum": "c1f0bfbdb6fb626272f239b055b3a794bf422c13efab0e5b0ce30b2cf1b42c82"
     },
 
-    "database": { "type": "postgresql", "schema_version": "1.0" },
+    "database": {
+        "type": "postgresql",
+        "schema_version": "1.0",
+        "inserts": [
+            { "sql": "UPDATE app_store_account SET hashed_password = '@bcrypt(@config[init][admin][password], 12)', email = '@config[init][admin][email]', email_verified = true WHERE uuid = (SELECT uuid FROM app_store_account WHERE admin = true AND email = '_@_')",
+              "unless": "SELECT COUNT(*) FROM app_store_account WHERE email='@config[init][admin][email]'" }
+        ]
+    },
 
     "web": { "type": "apache", "mode": "proxy_service", "mount": "appstore" },
 
