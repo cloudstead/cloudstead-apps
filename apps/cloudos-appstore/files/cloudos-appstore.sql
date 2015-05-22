@@ -145,7 +145,6 @@ CREATE TABLE cloud_app (
     uuid character varying(100) NOT NULL,
     ctime bigint NOT NULL,
     name character varying(100) NOT NULL,
-    active_version character varying(100),
     author character varying(100),
     publisher character varying(100) NOT NULL
 );
@@ -170,6 +169,23 @@ CREATE TABLE cloud_app_client (
 ALTER TABLE public.cloud_app_client OWNER TO cloudos_appstore_test;
 
 --
+-- Name: cloud_app_version; Type: TABLE; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
+--
+
+CREATE TABLE cloud_app_version (
+    uuid character varying(100) NOT NULL,
+    ctime bigint NOT NULL,
+    app character varying(100) NOT NULL,
+    approved_by character varying(100),
+    bundle_sha character varying(80) NOT NULL,
+    status character varying(20) NOT NULL,
+    version character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.cloud_app_version OWNER TO cloudos_appstore_test;
+
+--
 -- Data for Name: app_footprint; Type: TABLE DATA; Schema: public; Owner: cloudos_appstore_test
 --
 
@@ -190,7 +206,7 @@ COPY app_price (uuid, ctime, cloud_app, initial_cost, iso_currency, monthly_fixe
 --
 
 COPY app_store_account (uuid, ctime, name, admin, auth_id, email, email_verification_code, email_verification_code_created_at, email_verified, first_name, hashed_password, reset_token, reset_token_ctime, last_login, last_name, locale, mobile_phone, mobile_phone_country_code, suspended, two_factor, tos_version) FROM stdin;
-3b2bcacd-335e-4e29-87e1-bff3a10ef40f	1432216864845	cloudstead	t	\N	_@_	\N	\N	f	cloudstead	$2a$04$7TuWBGA2ezDsJ.YN2f7/lOcaMMe/VujZ4MpHtNL6MioMstiZ5R5JW	\N	\N	\N	cloudstead	\N	________	1	t	f	\N
+e5f8b024-8547-4b39-a6fd-067250ffca88	1432285253287	cloudstead	t	\N	_@_	\N	\N	f	cloudstead	$2a$04$gMcuXg2tioCGkUGWfwRlm.XNiU9L/vbBVHNCVtu7wde9uEvbXEFCC	\N	\N	\N	cloudstead	\N	________	1	t	f	\N
 \.
 
 
@@ -222,7 +238,7 @@ COPY app_store_publisher_member (uuid, ctime, account, activation, activation_ex
 -- Data for Name: cloud_app; Type: TABLE DATA; Schema: public; Owner: cloudos_appstore_test
 --
 
-COPY cloud_app (uuid, ctime, name, active_version, author, publisher) FROM stdin;
+COPY cloud_app (uuid, ctime, name, author, publisher) FROM stdin;
 \.
 
 
@@ -231,6 +247,14 @@ COPY cloud_app (uuid, ctime, name, active_version, author, publisher) FROM stdin
 --
 
 COPY cloud_app_client (uuid, ctime, client_url, client_url_sha, cloud_app, type) FROM stdin;
+\.
+
+
+--
+-- Data for Name: cloud_app_version; Type: TABLE DATA; Schema: public; Owner: cloudos_appstore_test
+--
+
+COPY cloud_app_version (uuid, ctime, app, approved_by, bundle_sha, status, version) FROM stdin;
 \.
 
 
@@ -392,6 +416,22 @@ ALTER TABLE ONLY cloud_app
 
 ALTER TABLE ONLY cloud_app
     ADD CONSTRAINT cloud_app_pkey PRIMARY KEY (uuid);
+
+
+--
+-- Name: cloud_app_version_app_version_key; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
+--
+
+ALTER TABLE ONLY cloud_app_version
+    ADD CONSTRAINT cloud_app_version_app_version_key UNIQUE (app, version);
+
+
+--
+-- Name: cloud_app_version_pkey; Type: CONSTRAINT; Schema: public; Owner: cloudos_appstore_test; Tablespace: 
+--
+
+ALTER TABLE ONLY cloud_app_version
+    ADD CONSTRAINT cloud_app_version_pkey PRIMARY KEY (uuid);
 
 
 --
