@@ -28,7 +28,8 @@
                 "authy.user", "authy.base_uri",
                 "authy_admin.user", "authy_admin.base_uri",
                 "cloudos_dns.user", "cloudos_dns.password", "cloudos_dns.base_uri",
-                "cloudos_appstore.user", "cloudos_appstore.password", "cloudos_appstore.base_uri"
+                "cloudos_appstore.user", "cloudos_appstore.password", "cloudos_appstore.base_uri",
+                "activation.name", "activation.quantity", "activation.expiration_days"
             ]
         }
     ],

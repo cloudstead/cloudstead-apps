@@ -26,7 +26,7 @@
         "type": "postgresql",
         "schema_version": "1.0",
         "inserts": [
-            { "sql": "UPDATE app_store_account SET name='@config[init][admin][name]' hashed_password = '@bcrypt(@config[init][admin][password], 12)', email = '@config[init][admin][email]', email_verified = true WHERE uuid = (SELECT uuid FROM app_store_account WHERE admin = true AND email = '_@_')",
+            { "sql": "UPDATE app_store_account SET name='@config[init][admin][name]', hashed_password = '@bcrypt(@config[init][admin][password], 12)', email = '@config[init][admin][email]', email_verified = true WHERE uuid = (SELECT uuid FROM app_store_account WHERE admin = true AND email = '_@_')",
               "unless": "SELECT COUNT(*) FROM app_store_account WHERE email='@config[init][admin][email]'" }
         ]
     },
@@ -49,10 +49,10 @@
 
     "sysinit": [ "jrun" ],
 
-    "post_install": [
-        { "exec": "/usr/bin/init_appstore.sh" },
-        { "exec": "/usr/bin/cstead accode @config[init][activation][name] @config[init][activation][quantity] @config[init][activation][expiration_days]" }
-    ],
+    "post_install": [ {
+        "exec": "/usr/bin/init_appstore.sh @config[init][admin][name] http://127.0.0.1:@config[ports][primary]/",
+        "env": { "APPSTORE_PASS": "@config[init][admin][password]" }
+    } ],
 
     "validation": { "service_url": "/auth" },
 
