@@ -1,0 +1,40 @@
+#!/bin/bash
+
+<% init_bag = @app[:databag][:init] %>
+
+OK_APPS=""
+FAILED_APPS=""
+APP_JSON=$(mktemp /tmp/app.XXXXXXX.json || exit 1)
+
+<% init_bag['initial_apps'].each do |app| %>
+
+if [ ! cas apps --operation read --name <%=app['name']%> 2> /dev/null ] ; then
+
+    OK=0
+    cas apps --operation create --bundle <%=app['bundleUrl']%> --bundle-sha <%=app['bundleSha']%> > ${APP_JSON}
+    NAME=$(cas json --file ${APP_JSON} --operation read --path app)
+    VERSION=$(cas json --file ${APP_JSON} --operation read --path version)
+
+    if [[ $? -eq 0 && ! -z "${NAME}" && ! -z "${VERSION}" ]] ; then
+
+      cas apps --operation update --name ${NAME} --version ${VERSION} --status published > ${APP_JSON}
+      STATUS=$(cas json --file ${APP_JSON} --operation read --path status)
+      if [ "${STATUS}" == "published" ] ; then
+        OK_APPS="${OK_APPS} <%=app['name']%>"
+        OK=1
+      fi
+
+    fi
+
+    if [ ${OK} -eq 0 ] ; then
+      FAILED_APPS="${FAILED_APPS} <%=app['name']%>"
+    fi
+
+fi
+
+<% end %>
+
+echo "Apps installed OK: ${OK_APPS}"
+echo ""
+echo "Apps that FAILED installation: ${FAILED_APPS}"
+echo ""
