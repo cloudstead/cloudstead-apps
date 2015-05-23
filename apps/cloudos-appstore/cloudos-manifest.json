@@ -10,12 +10,12 @@
         "packaging_copyright": "Copyright 2014 Cloudstead, Inc."
     },
 
-    "config": [ {
-        "name": "init",
-        "items": [ "admin.name", "admin.password", "admin.email",
-                   "sendgrid.user", "sendgrid.password",
-                   "initial_apps" ]
-    } ],
+    "config": [
+        { "name": "init",
+          "items": [ "admin.name", "admin.password", "admin.email",
+                     "sendgrid.user", "sendgrid.password" ] },
+        { "name": "apps", "items": [ "apps" ] }
+    ],
 
     "tarball": {
         "url": "http://cloudstead.io/downloads/cloudos-appstore-server.tar.gz",
@@ -36,7 +36,8 @@
     "templates": {
         ".cloudos-appstore.env": "dot-cloudos-appstore.env",
         "/usr/bin/cas": "_",
-        "/usr/bin/init_appstore.sh": "_"
+        "/usr/bin/publish_app.sh": "_",
+        "@name/populate_appstore.sh": "_"
     },
 
     "copy": {
@@ -50,8 +51,7 @@
     "sysinit": [ "jrun" ],
 
     "post_install": [ {
-        "exec": "/usr/bin/init_appstore.sh @config[init][admin][name] http://127.0.0.1:@config[ports][primary]/",
-        "env": { "APPSTORE_PASS": "@config[init][admin][password]" }
+        "exec": "@name/populate_appstore.sh", "env": { "APPSTORE_PASS": "@config[init][admin][password]" }
     } ],
 
     "validation": { "service_url": "/auth" },

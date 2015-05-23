@@ -206,7 +206,7 @@ COPY app_price (uuid, ctime, cloud_app, initial_cost, iso_currency, monthly_fixe
 --
 
 COPY app_store_account (uuid, ctime, name, admin, auth_id, email, email_verification_code, email_verification_code_created_at, email_verified, first_name, hashed_password, reset_token, reset_token_ctime, last_login, last_name, locale, mobile_phone, mobile_phone_country_code, suspended, two_factor, tos_version) FROM stdin;
-e5f8b024-8547-4b39-a6fd-067250ffca88	1432285253287	cloudstead	t	\N	_@_	\N	\N	f	cloudstead	$2a$04$gMcuXg2tioCGkUGWfwRlm.XNiU9L/vbBVHNCVtu7wde9uEvbXEFCC	\N	\N	\N	cloudstead	\N	________	1	t	f	\N
+9d4c7239-8421-44a8-ab91-affe9bcc31ae	1432360076671	admin	t	\N	_@_	\N	\N	f	cloudstead	$2a$04$w9NLZx5NCdLvnGIHL/f9A.OKOIHMtdOZlsKBsrvORQFzA8E8Z1lnO	\N	\N	\N	cloudstead	\N	________	1	t	f	\N
 \.
 
 
@@ -223,6 +223,7 @@ COPY app_store_cloud_account (uuid, ctime, ucid, uri) FROM stdin;
 --
 
 COPY app_store_publisher (uuid, ctime, name, owner) FROM stdin;
+bb8196a6-9256-4136-9c28-e5b0ae55c354	1432360076877	admin	9d4c7239-8421-44a8-ab91-affe9bcc31ae
 \.
 
 
@@ -231,6 +232,7 @@ COPY app_store_publisher (uuid, ctime, name, owner) FROM stdin;
 --
 
 COPY app_store_publisher_member (uuid, ctime, account, activation, activation_expiration, active, publisher) FROM stdin;
+da6500a0-17e2-42d6-bb40-512915a4896a	1432360076909	9d4c7239-8421-44a8-ab91-affe9bcc31ae	\N	\N	t	bb8196a6-9256-4136-9c28-e5b0ae55c354
 \.
 
 
