@@ -50,7 +50,7 @@
 
     "sysinit": [ "jrun" ],
 
-    "post_install": [ {
+    "finalize": [ {
         "exec": "@name/populate_appstore.sh", "env": { "APPSTORE_PASS": "@config[init][admin][password]" }
     } ],
 
