@@ -17,13 +17,14 @@ FAILED_APPS=""
 
 function populate_app {
   app_name="${1}"
-  bundle_url="${2}"
-  bundle_sha="${3}"
+  status="${2}"
+  bundle_url="${3}"
+  bundle_sha="${4}"
 
   if cas apps --account ${ADMIN} --server ${SERVER} --operation read --name ${app_name} ; then
     SKIPPED_APPS="${SKIPPED_APPS} ${app_name}"
   else
-    if ! publish_app.sh ${ADMIN} ${bundle_url} ${bundle_sha} ${SERVER} ; then
+    if ! publish_app.sh ${ADMIN} ${status} ${bundle_url} ${bundle_sha} ${SERVER} ; then
       OK_APPS="${OK_APPS} ${app_name}"
     else
       FAILED_APPS="${FAILED_APPS} ${app_name}"
@@ -31,8 +32,14 @@ function populate_app {
   fi
 }
 
-<% @app[:databag][:apps]['apps'].each do |app| %>
-populate_app <%=app['name']%> <%=app['bundle_url']%> <%=app['bundle_sha']%>
+<% %w(created pending published hidden retired).each do |status| %>
+
+  <% if @app[:databag][:apps].has_key? status %>
+    <% @app[:databag][:apps][status].each do |app| %>
+populate_app <%=app['name']%> <%=status%> <%=app['bundle_url']%> <%=app['bundle_sha']%>
+    <% end %>
+  <% end %>
+
 <% end %>
 
 echo "---------------------------------"

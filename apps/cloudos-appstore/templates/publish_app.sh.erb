@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# Installs and publishes an app from a bundle URL
+# Installs and updates status for an app from a bundle URL
 #
-# Usage: install_and_publish_app.sh <admin> <bundle-url> [bundle-sha] [server]
+# Usage: install_and_publish_app.sh <admin> <status> <bundle-url> [bundle-sha] [server]
 #
 # You must define APPSTORE_PASS in your environment.
 # If bundle-sha is omitted, it will be calculated automatically from the bundle-url
@@ -24,12 +24,16 @@ if [ -z "${APPSTORE_PASS}" ] ; then
 fi
 
 ADMIN="${1}"
-BUNDLE_URL="${2}"
-BUNDLE_SHA="${3}"
-SERVER="${4}"
+STATUS="${2}"
+BUNDLE_URL="${3}"
+BUNDLE_SHA="${4}"
+SERVER="${5}"
 
 if [ -z "${ADMIN}" ] ; then
   die "No admin provided"
+fi
+if [ -z "${STATUS}" ] ; then
+  die "No status provided"
 fi
 if [ -z "${BUNDLE_URL}" ] ; then
   die "No bundle URL provided"
@@ -61,8 +65,8 @@ if [[ -z "${created_name}" || -z "${created_version}" || "${created_version}" !=
   die "Error creating app: created_name=${created_name}, created_version=${created_version}, parsed_version=${parsed_version}"
 fi
 
-# Publish the app
-cas apps ${CAS_OPTS} --operation update --name ${created_name} --version ${created_version} --status published > ${TEMP_JSON}
+# Update status of the app
+cas apps ${CAS_OPTS} --operation update --name ${created_name} --version ${created_version} --status ${STATUS} > ${TEMP_JSON}
 app_status=$(cas json --file ${TEMP_JSON} --operation read --path status | tr -d '"')
 
 # Verify app was successfully published
