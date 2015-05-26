@@ -9,9 +9,14 @@
 #
 # The apps listed as hidden will be included in the apps.json's "hidden" array.
 # All other apps will be included in the "published" array.
+# If no hidden apps are listed, the default list of hidden apps is:
+#   apache auth base email mysql postgresql cloudstead cloudos-appstore *-standalone
 #
 
 HIDDEN="$@"
+if [ -z "${HIDDEN}" ] ; then
+  HIDDEN="apache auth base email mysql postgresql cloudstead cloudos-appstore $(ls -1 *-standalone-bundle.tar.gz | sed -e 's/-bundle.tar.gz//')"
+fi
 
 if [ -z ${APPS_BASE_URL} ] ; then
   APPS_BASE_URL="http://cloudstead.io/downloads"
@@ -39,7 +44,7 @@ for f in $(ls -1 *.tar.gz | grep bundle) ; do
     echo ", "
   fi
   echo -n "    { \"name\": \"${name}\",
-      \"bundle_url\": \"${BASE_URL}/${f}\",
+      \"bundle_url\": \"${APPS_BASE_URL}/${f}\",
       \"bundle_sha\": \"$(shasum -a 256 ${f} | awk '{print $1}')\" }"
 done
 
@@ -70,7 +75,7 @@ for f in $(ls -1 *.tar.gz | grep bundle) ; do
     echo ", "
   fi
   echo -n "    { \"name\": \"${name}\",
-      \"bundle_url\": \"http://cloudstead.io/downloads/${f}\",
+      \"bundle_url\": \"${APPS_BASE_URL}/${f}\",
       \"bundle_sha\": \"$(shasum -a 256 ${f} | awk '{print $1}')\" }"
 done
 
