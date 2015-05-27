@@ -1,0 +1,48 @@
+#!/bin/bash
+
+<%
+base = Chef::Recipe::Base
+base.init_bcrypt
+%>
+
+function die {
+  echo >&2 "${1}"
+  exit 1
+}
+
+if [ $(whoami) != "root" ] ; then die "Not root" ; fi
+
+NAME="${1}"
+if [ -z "${NAME}" ] ; then die "No name provided" ; fi
+
+EMAIL="${2}"
+if [ -z "${EMAIL}" ] ; then die "No email provided" ; fi
+
+PASSWORD="${AS_PASS}"
+if [ -z "${PASSWORD}" ] ; then die "No password provided (use AS_PASS env var)" ; fi
+
+export PGPASSWORD=$(cat <%=@app[:run_as_home]%>/.cloudos-appstore.env | grep 'DB_PASS=' | awk -F '=' '{print $2}')
+PSQL="psql -qt -U <%=@app[:dbuser]%> -h 127.0.0.1 <%=@app[:dbname]%>"
+
+EXISTS=$(echo "SELECT COUNT("'*'") from app_store_account WHERE name='"${NAME}"'" | ${PSQL} | tr -d '[[:space:]]')
+if [[ -z "${EXISTS}" || "${EXISTS}" -gt 0 ]] ; then
+  echo "Account already exists: ${NAME}"
+  exit 0
+fi
+
+echo "
+INSERT INTO app_store_account
+(uuid, ctime, name, email, first_name, last_name, hashed_password, admin, email_verified, suspended, two_factor)
+VALUES
+('"$(uuidgen)"', $(date +%s)000, '"${NAME}"', '"${EMAIL}"', '"${NAME}"', '"${NAME}"', '"$(echo "${PASSWORD}" | bcrypt-password 10)"', true, true, false, false);
+
+INSERT INTO app_store_publisher
+(uuid, ctime, name, owner)
+VALUES
+((SELECT uuid FROM app_store_account WHERE name='"${NAME}"'), $(date +%s)000, '"${NAME}"', (SELECT uuid FROM app_store_account WHERE name='"${NAME}"'));
+
+INSERT INTO app_store_publisher_member
+(uuid, ctime, active, account, publisher)
+VALUES
+('"$(uuidgen)"', $(date +%s)000, true, (SELECT uuid FROM app_store_account WHERE name='"${NAME}"'), (SELECT uuid FROM app_store_publisher WHERE name='"${NAME}"'));
+" | ${PSQL}

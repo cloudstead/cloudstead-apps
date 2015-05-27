@@ -12,9 +12,7 @@
 
     "config": [
         { "name": "init",
-          "items": [ "admin.name", "admin.password", "admin.email",
-                     "sendgrid.user", "sendgrid.password" ] },
-        { "name": "apps", "items": [ "apps" ] }
+          "items": [ "sendgrid.user", "sendgrid.password" ] }
     ],
 
     "tarball": {
@@ -22,14 +20,7 @@
         "shasum": "c1f0bfbdb6fb626272f239b055b3a794bf422c13efab0e5b0ce30b2cf1b42c82"
     },
 
-    "database": {
-        "type": "postgresql",
-        "schema_version": "1.0",
-        "inserts": [
-            { "sql": "UPDATE app_store_account SET name='@config[init][admin][name]', hashed_password = '@bcrypt(@config[init][admin][password], 12)', email = '@config[init][admin][email]', email_verified = true WHERE uuid = (SELECT uuid FROM app_store_account WHERE admin = true AND email = '_@_')",
-              "unless": "SELECT COUNT(*) FROM app_store_account WHERE email='@config[init][admin][email]'" }
-        ]
-    },
+    "database": { "type": "postgresql", "schema_version": "1.0" },
 
     "web": { "type": "apache", "mode": "proxy_service", "mount": "appstore" },
 
@@ -37,7 +28,7 @@
         ".cloudos-appstore.env": "dot-cloudos-appstore.env",
         "/usr/bin/cas": "_",
         "/usr/bin/publish_app.sh": "_",
-        "@name/populate_appstore.sh": "_"
+        "/usr/bin/create_appstore_admin.sh": "_"
     },
 
     "copy": {
@@ -49,10 +40,6 @@
     },
 
     "sysinit": [ "jrun" ],
-
-    "finalize": [ {
-        "exec": "@name/populate_appstore.sh", "env": { "APPSTORE_PASS": "@config[init][admin][password]" }
-    } ],
 
     "validation": { "service_url": "/auth" },
 

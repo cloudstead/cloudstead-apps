@@ -2,7 +2,7 @@
 #
 # Installs and updates status for an app from a bundle URL
 #
-# Usage: install_and_publish_app.sh <admin> <status> <bundle-url> [bundle-sha] [server]
+# Usage: install_and_publish_app.sh <admin> <publisher> <visibility> <bundle-url> [bundle-sha] [server]
 #
 # You must define APPSTORE_PASS in your environment.
 # If bundle-sha is omitted, it will be calculated automatically from the bundle-url
@@ -24,20 +24,17 @@ if [ -z "${APPSTORE_PASS}" ] ; then
 fi
 
 ADMIN="${1}"
-STATUS="${2}"
-BUNDLE_URL="${3}"
-BUNDLE_SHA="${4}"
-SERVER="${5}"
+PUBLISHER="${2}"
+VISIBILITY="${3}"
+BUNDLE_URL="${4}"
+BUNDLE_SHA="${5}"
+SERVER="${6}"
 
-if [ -z "${ADMIN}" ] ; then
-  die "No admin provided"
-fi
-if [ -z "${STATUS}" ] ; then
-  die "No status provided"
-fi
-if [ -z "${BUNDLE_URL}" ] ; then
-  die "No bundle URL provided"
-fi
+if [ -z "${ADMIN}" ] ; then die "No admin provided" ; fi
+if [ -z "${PUBLISHER}" ] ; then die "No publisher provided" ; fi
+if [ -z "${VISIBILITY}" ] ; then die "No visibility provided" ; fi
+if [ -z "${BUNDLE_URL}" ] ; then die "No bundle URL provided" ; fi
+
 if [ -z "${BUNDLE_SHA}" ] ; then
   BUNDLE_SHA=$(curl -sf ${BUNDLE_URL} | shasum -a 256 | awk '{print $1}') || die "Error calculating SHA for ${BUNDLE_URL}"
   if [ -z "${BUNDLE_SHA}" ] ; then
@@ -48,10 +45,11 @@ if [ -z "${SERVER}" ] ; then
   SERVER="http://127.0.0.1:<%=@app[:databag][:ports]['primary']%>"
 fi
 
-CAS_OPTS="--account ${ADMIN} --server ${SERVER}"
+CAS_OPTS="--account ${ADMIN} --server ${SERVER} --publisher ${PUBLISHER}"
 
 # Create the app, save JSON returned to retrieve version
-cas apps ${CAS_OPTS} --operation create --bundle ${BUNDLE_URL} --bundle-sha ${BUNDLE_SHA} > ${TEMP_JSON} || die "Error creating app"
+cas apps ${CAS_OPTS} --operation create --attr-name visibility --attr-value ${VISIBILITY} \
+  --bundle ${BUNDLE_URL} --bundle-sha ${BUNDLE_SHA} > ${TEMP_JSON} || die "Error creating app"
 
 # Extract name and version from JSON
 created_name=$(cas json --file ${TEMP_JSON} --operation read --path app | tr -d '"')
@@ -66,15 +64,15 @@ if [[ -z "${created_name}" || -z "${created_version}" || "${created_version}" !=
 fi
 
 # Update status of the app
-cas apps ${CAS_OPTS} --operation update --name ${created_name} --version ${created_version} --status ${STATUS} > ${TEMP_JSON}
+cas apps ${CAS_OPTS} --operation update --name ${created_name} --version ${created_version} --status published > ${TEMP_JSON}
 app_status=$(cas json --file ${TEMP_JSON} --operation read --path status | tr -d '"')
 
 # Verify app was successfully published
 if [ "${app_status}" == "published" ] ; then
-  echo "App ${created_name}/${created_version} successfully published"
+  echo "App ${PUBLISHER}/${created_name}/${created_version} successfully published"
   rm -f ${TEMP_JSON}
   exit 0
 
 else
-  die "Error publishing app"
+  die "Error publishing app (publisher=${PUBLISHER}): ${BUNDLE_URL}"
 fi

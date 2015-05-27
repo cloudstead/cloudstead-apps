@@ -29,10 +29,13 @@
                 "authy.user", "authy.base_uri",
                 "authy_admin.user", "authy_admin.base_uri",
                 "cloudos_dns.user", "cloudos_dns.password", "cloudos_dns.base_uri",
-                "cloudos_appstore.user", "cloudos_appstore.password", "cloudos_appstore.base_uri",
+                "appstore.base_uri",
+                "appstore.public.user", "appstore.public.email", "appstore.public.password",
+                "appstore.cloudstead.user", "appstore.cloudstead.email", "appstore.cloudstead.password",
                 "activation.name", "activation.quantity", "activation.expiration_days"
             ]
-        }
+        },
+        { "name": "apps", "items": [ "public", "cloudstead" ] }
     ],
 
     "packages": [ "memcached", "redis-server" ],
@@ -44,7 +47,7 @@
         "schema_version": "1.0",
         "inserts": [
             { "sql": "INSERT INTO admin (name, uuid, email, hashed_password, admin, ctime, email_verified, first_name, last_name, mobile_phone_country_code, mobile_phone, suspended, two_factor, max_cloudsteads) VALUES ('admin','admin','@config[init][admin][email]','@bcrypt(@config[init][admin][password], 12)', true, @now_millis, true, 'admin', 'admin', 1, '12345678', false, false, 10000)",
-              "unless": "SELECT COUNT(*) FROM admin WHERE email='@config[init][admin][email]'" }
+                "unless": "SELECT COUNT(*) FROM admin WHERE email='@config[init][admin][email]'" }
         ]
     },
 
@@ -53,7 +56,8 @@
     "templates": {
         ".cloudstead.env": "dot-cloudstead.env",
         "install_ssl_certs.sh": "_",
-        "/usr/bin/cstead": "_"
+        "/usr/bin/cstead": "_",
+        "@name/populate_appstore.sh": "_"
     },
 
     "symlinks": { "/usr/bin/cos": "/usr/bin/cstead" },
@@ -76,8 +80,15 @@
     "post_install": [
         { "exec": "@home/install_ssl_certs.sh" },
         { "exec": "/usr/bin/cstead dns --operation add --record a --fqdn @hostname --value @ipaddress --ttl 14400" },
-        { "exec": "/usr/bin/cstead accode @config[init][activation][name] @config[init][activation][quantity] @config[init][activation][expiration_days]" }
+        { "exec": "/usr/bin/cstead accode @config[init][activation][name] @config[init][activation][quantity] @config[init][activation][expiration_days]" },
+        { "exec": "/usr/bin/cstead accode @config[init][activation][name] @config[init][activation][quantity] @config[init][activation][expiration_days]" },
+        { "exec": "/usr/bin/create_appstore_admin.sh @config[init][appstore][public][user] @config[init][appstore][public][email]",
+            "env": { "AS_PASS": "@config[init][appstore][public][password]" } },
+        { "exec": "/usr/bin/create_appstore_admin.sh @config[init][appstore][cloudstead][user] @config[init][appstore][cloudstead][email]",
+            "env": { "AS_PASS": "@config[init][appstore][cloudstead][password]" } },
+        { "exec": "@name/populate_appstore.sh", "env": { "APPSTORE_PASS": "@config[init][appstore][cloudstead][password]" } }
     ],
 
     "sysinit": [ "jrun:cloudos.cloudstead.server.CloudsteadServer" ]
+
 }
