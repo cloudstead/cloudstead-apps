@@ -2,9 +2,11 @@
 #
 # Installs and updates status for an app from a bundle URL
 #
-# Usage: install_and_publish_app.sh <admin> <publisher> <visibility> <bundle-url> [bundle-sha] [server]
+# Usage: publish_app.sh <admin> <publisher> <visibility> <bundle-url> [bundle-sha] [server]
 #
 # You must define APPSTORE_PASS in your environment.
+# publisher will usually be the same value as admin
+# visibility is one of: everyone, members, publisher
 # If bundle-sha is omitted, it will be calculated automatically from the bundle-url
 # If server is omitted, the default local server will be used
 #
