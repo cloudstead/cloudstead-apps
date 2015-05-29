@@ -178,6 +178,7 @@ CREATE TABLE cloud_app_version (
     ctime bigint NOT NULL,
     app character varying(100) NOT NULL,
     approved_by character varying(100),
+    author character varying(100) NOT NULL,
     bundle_sha character varying(80) NOT NULL,
     status character varying(20) NOT NULL,
     version character varying(100) NOT NULL
@@ -254,7 +255,7 @@ COPY cloud_app_client (uuid, ctime, client_url, client_url_sha, cloud_app, type)
 -- Data for Name: cloud_app_version; Type: TABLE DATA; Schema: public; Owner: cloudos_appstore_test
 --
 
-COPY cloud_app_version (uuid, ctime, app, approved_by, bundle_sha, status, version) FROM stdin;
+COPY cloud_app_version (uuid, ctime, app, approved_by, author, bundle_sha, status, version) FROM stdin;
 \.
 
 
