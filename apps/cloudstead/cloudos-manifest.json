@@ -56,8 +56,7 @@
     "templates": {
         ".cloudstead.env": "dot-cloudstead.env",
         "install_ssl_certs.sh": "_",
-        "/usr/bin/cstead": "_",
-        "@name/populate_appstore.sh": "_"
+        "/usr/bin/cstead": "_"
     },
 
     "symlinks": { "/usr/bin/cos": "/usr/bin/cstead" },
@@ -69,7 +68,8 @@
 
     "copy": {
         "@files/dot-cstead-commands": "@name/.cstead-commands",
-        "/opt/cloudos/geoip": "@name/cloudos-chef/data_files/"
+        "/opt/cloudos/geoip": "@name/cloudos-chef/data_files/",
+        "@files/populate_appstore.sh": "/usr/bin/populate_appstore.sh"
     },
 
     "perms": {
@@ -84,9 +84,12 @@
         { "exec": "/usr/bin/cstead accode @config[init][activation][name] @config[init][activation][quantity] @config[init][activation][expiration_days]" },
         { "exec": "/usr/bin/create_appstore_admin.sh @config[init][appstore][public][user] @config[init][appstore][public][email]",
             "env": { "AS_PASS": "@config[init][appstore][public][password]" } },
+        { "exec": "@files/populate_appstore.sh @config[init][appstore][public][user] @databag(apps)",
+            "env": { "APPSTORE_PASS": "@config[init][appstore][public][password]" } },
         { "exec": "/usr/bin/create_appstore_admin.sh @config[init][appstore][cloudstead][user] @config[init][appstore][cloudstead][email]",
             "env": { "AS_PASS": "@config[init][appstore][cloudstead][password]" } },
-        { "exec": "@name/populate_appstore.sh", "env": { "APPSTORE_PASS": "@config[init][appstore][cloudstead][password]" } }
+        { "exec": "@files/populate_appstore.sh @config[init][appstore][cloudstead][user] @databag(apps)",
+            "env": { "APPSTORE_PASS": "@config[init][appstore][cloudstead][password]" } }
     ],
 
     "sysinit": [ "jrun:cloudos.cloudstead.server.CloudsteadServer" ]

@@ -24,28 +24,18 @@ function die {
 if [ -z "${APPSTORE_PASS}" ] ; then
   die "No APPSTORE_PASS found in environment"
 fi
+SERVER="${APPSTORE_SERVER:-https://$(hostname)/appstore}"
 
-ADMIN="${1}"
-PUBLISHER="${2}"
-VISIBILITY="${3}"
-BUNDLE_URL="${4}"
-BUNDLE_SHA="${5}"
-SERVER="${6}"
+ADMIN="${1:?No admin provided}"
+PUBLISHER="${2:?No publisher provided}"
+VISIBILITY="${3:?No visibility provided}"
+BUNDLE_URL="${4:?No bundle URL provided}"
+BUNDLE_SHA="${5:-$(curl -sf ${BUNDLE_URL} | shasum -a 256 | awk '{print $1}')}"
 
 if [ -z "${ADMIN}" ] ; then die "No admin provided" ; fi
 if [ -z "${PUBLISHER}" ] ; then die "No publisher provided" ; fi
 if [ -z "${VISIBILITY}" ] ; then die "No visibility provided" ; fi
 if [ -z "${BUNDLE_URL}" ] ; then die "No bundle URL provided" ; fi
-
-if [ -z "${BUNDLE_SHA}" ] ; then
-  BUNDLE_SHA=$(curl -sf ${BUNDLE_URL} | shasum -a 256 | awk '{print $1}') || die "Error calculating SHA for ${BUNDLE_URL}"
-  if [ -z "${BUNDLE_SHA}" ] ; then
-    die "Error calculating SHA for ${BUNDLE_URL}"
-  fi
-fi
-if [ -z "${SERVER}" ] ; then
-  SERVER="http://127.0.0.1:<%=@app[:databag][:ports]['primary']%>"
-fi
 
 CAS_OPTS="--account ${ADMIN} --server ${SERVER} --publisher ${PUBLISHER}"
 

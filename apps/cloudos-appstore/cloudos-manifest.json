@@ -27,12 +27,12 @@
     "templates": {
         ".cloudos-appstore.env": "dot-cloudos-appstore.env",
         "/usr/bin/cas": "_",
-        "/usr/bin/publish_app.sh": "_",
         "/usr/bin/create_appstore_admin.sh": "_"
     },
 
     "copy": {
-        "@files/dot-cas-commands": "@name/.cas-commands"
+        "@files/dot-cas-commands": "@name/.cas-commands",
+        "@files/publish_app.sh": "/usr/bin/publish_app.sh"
     },
 
     "perms": {
