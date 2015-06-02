@@ -26,6 +26,19 @@ elif [[ $(echo ${JSON_FILE} | head -c 7) = "http://" || $(echo ${JSON_FILE} | he
 else
     die "Unreadable: ${JSON_FILE}"
 fi
+
+SINGLE_APP="${3}"
+if [ -z "${SINGLE_APP}" ] ; then
+  echo "Publishing all apps for publisher ${publisher}"
+
+elif [ "${SINGLE_APP}" = "--force" ] ; then
+  FORCE="--force"
+  SINGLE_APP=""
+
+else
+  echo "Publishing single app ${SINGLE_APP} for publisher ${publisher}"
+  shift
+fi
 FORCE="${3}"
 
 OK_APPS=""
@@ -55,11 +68,14 @@ while [ true ] ; do
   APP_JSON="$(cstead json -f ${JSON_FILE} -o read -p ${publisher}[${i}])" || break
 
   name="$(echo "${APP_JSON}" | cstead json -o read -p name | tr -d '"')"
-  visibility="$(echo "${APP_JSON}" | cstead json -o read -p visibility | tr -d '"')"
-  bundle_url="$(echo "${APP_JSON}" | cstead json -o read -p bundle_url | tr -d '"')"
-  bundle_sha="$(echo "${APP_JSON}" | cstead json -o read -p bundle_sha | tr -d '"')"
 
-  populate_app ${publisher} ${name} ${visibility} ${bundle_url} ${bundle_sha}
+  if [[ -z "${SINGLE_APP}" || "${SINGLE_APP}" == "${name}" ]] ; then
+      visibility="$(echo "${APP_JSON}" | cstead json -o read -p visibility | tr -d '"')"
+      bundle_url="$(echo "${APP_JSON}" | cstead json -o read -p bundle_url | tr -d '"')"
+      bundle_sha="$(echo "${APP_JSON}" | cstead json -o read -p bundle_sha | tr -d '"')"
+
+      populate_app ${publisher} ${name} ${visibility} ${bundle_url} ${bundle_sha}
+  fi
 
   i=$(expr ${i} + 1)
 done
