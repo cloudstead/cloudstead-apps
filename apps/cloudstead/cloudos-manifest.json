@@ -84,11 +84,11 @@
         { "exec": "/usr/bin/cstead accode @config[init][activation][name] @config[init][activation][quantity] @config[init][activation][expiration_days]" },
         { "exec": "/usr/bin/create_appstore_admin.sh @config[init][appstore][public][user] @config[init][appstore][public][email]",
             "env": { "AS_PASS": "@config[init][appstore][public][password]" } },
-        { "exec": "@files/populate_appstore.sh @config[init][appstore][public][user] @databag(apps)",
+        { "exec": "@files/populate_appstore.sh @config[init][appstore][public][user] @config[init][appstore][public][apps]",
             "env": { "APPSTORE_PASS": "@config[init][appstore][public][password]" } },
         { "exec": "/usr/bin/create_appstore_admin.sh @config[init][appstore][cloudstead][user] @config[init][appstore][cloudstead][email]",
             "env": { "AS_PASS": "@config[init][appstore][cloudstead][password]" } },
-        { "exec": "@files/populate_appstore.sh @config[init][appstore][cloudstead][user] @databag(apps)",
+        { "exec": "@files/populate_appstore.sh @config[init][appstore][cloudstead][user] @config[init][appstore][cloudstead][apps]",
             "env": { "APPSTORE_PASS": "@config[init][appstore][cloudstead][password]" } }
     ],
 
