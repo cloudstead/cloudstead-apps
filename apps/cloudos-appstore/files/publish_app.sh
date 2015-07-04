@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Installs and updates status for an app from a bundle URL
+# Installs and publishes app from a bundle URL
 #
 # Usage: publish_app.sh <admin> <publisher> <visibility> <bundle-url> [bundle-sha] [server]
 #
@@ -55,8 +55,9 @@ if [[ -z "${created_name}" || -z "${created_version}" || "${created_version}" !=
   die "Error creating app: created_name=${created_name}, created_version=${created_version}, parsed_version=${parsed_version}"
 fi
 
-# Update status of the app
-cas apps ${CAS_OPTS} --operation update --name ${created_name} --version ${created_version} --status published > ${TEMP_JSON}
+# Publish the app
+cas apps ${CAS_OPTS} --operation update --name ${created_name} --version ${created_version} --status published \
+  > ${TEMP_JSON} || die "Error publishing app: ${created_name}/${created_version}"
 app_status=$(cas json --file ${TEMP_JSON} --operation read --path status | tr -d '"')
 
 # Verify app was successfully published
