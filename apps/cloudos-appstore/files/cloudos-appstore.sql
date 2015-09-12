@@ -145,6 +145,7 @@ CREATE TABLE cloud_app (
     uuid character varying(100) NOT NULL,
     ctime bigint NOT NULL,
     author character varying(100),
+    level character varying(20) NOT NULL,
     name character varying(100) NOT NULL,
     publisher character varying(100) NOT NULL,
     visibility character varying(20) NOT NULL
@@ -239,7 +240,7 @@ COPY app_store_publisher_member (uuid, ctime, account, activation, activation_ex
 -- Data for Name: cloud_app; Type: TABLE DATA; Schema: public; Owner: cloudos_appstore_test
 --
 
-COPY cloud_app (uuid, ctime, author, name, publisher, visibility) FROM stdin;
+COPY cloud_app (uuid, ctime, author, level, name, publisher, visibility) FROM stdin;
 \.
 
 
