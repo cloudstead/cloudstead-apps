@@ -77,9 +77,10 @@
         "/usr/bin/cstead": { "chown": "@run_as.root", "perms": "750" }
     },
 
+    "dns": [ { "type": "a", "fqdn": "@hostname", "value": "@ipaddress", "ttl": 14400 } ],
+
     "post_install": [
         { "exec": "@home/install_ssl_certs.sh" },
-        { "exec": "/usr/bin/cstead dns --operation add --record a --fqdn @hostname --value @ipaddress --ttl 14400" },
         { "exec": "/usr/bin/cstead accode @config[init][activation][name] @config[init][activation][quantity] @config[init][activation][expiration_days]" },
         { "exec": "/usr/bin/cstead accode @config[init][activation][name] @config[init][activation][quantity] @config[init][activation][expiration_days]" },
         { "exec": "/usr/bin/create_appstore_admin.sh @config[init][appstore][public][user] @config[init][appstore][public][email]",

@@ -53,7 +53,7 @@ fi
 FIXED_ARGS=""
 if [[ ${command} = "dns" || ${command} = "cos-dns" ]] ; then
   CONFIG=<%=@app[:chef_user_home]%>/chef/data_bags/cloudos-dns/init.json
-  CONFIG_NODE="dyndns"
+  CONFIG_NODE="dyn"
   FIXED_ARGS="--config ${CONFIG} --config-node ${CONFIG_NODE}"
 fi
 
