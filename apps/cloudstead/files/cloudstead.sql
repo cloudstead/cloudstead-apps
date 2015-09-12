@@ -84,19 +84,20 @@ ALTER TABLE public.admin OWNER TO cloudstead;
 CREATE TABLE cloud_os (
     uuid character varying(100) NOT NULL,
     ctime bigint NOT NULL,
-    name character varying(30) NOT NULL,
-    additional_apps character varying(4096),
+    name character varying(100) NOT NULL,
     admin_uuid character varying(255),
-    app_bundle character varying(30) NOT NULL,
-    edition character varying(30) NOT NULL,
-    instance_json character varying(16384),
+    apps character varying(4096),
+    instance_json character varying(64000),
+    instance_type character varying(30) NOT NULL,
     last_state_change bigint NOT NULL,
     region character varying(200) NOT NULL,
     s3access_key character varying(255),
     s3secret_key character varying(255),
     staging_dir character varying(1024),
     state character varying(30) NOT NULL,
-    ucid character varying(100) NOT NULL
+    ucid character varying(100) NOT NULL,
+    app_bundle character varying(30) NOT NULL,
+    edition character varying(30) NOT NULL
 );
 
 
@@ -109,8 +110,11 @@ ALTER TABLE public.cloud_os OWNER TO cloudstead;
 CREATE TABLE cloud_os_event (
     uuid character varying(100) NOT NULL,
     ctime bigint NOT NULL,
-    cloud_os_uuid character varying(255),
-    message_key character varying(255)
+    exception character varying(32000),
+    message_key character varying(1000) NOT NULL,
+    success boolean NOT NULL,
+    task_id character varying(100) NOT NULL,
+    cloud_os_uuid character varying(100) NOT NULL
 );
 
 
@@ -150,7 +154,7 @@ COPY admin (uuid, ctime, name, admin, auth_id, email, email_verification_code, e
 -- Data for Name: cloud_os; Type: TABLE DATA; Schema: public; Owner: cloudstead
 --
 
-COPY cloud_os (uuid, ctime, name, additional_apps, admin_uuid, app_bundle, edition, instance_json, last_state_change, region, s3access_key, s3secret_key, staging_dir, state, ucid) FROM stdin;
+COPY cloud_os (uuid, ctime, name, admin_uuid, apps, instance_json, instance_type, last_state_change, region, s3access_key, s3secret_key, staging_dir, state, ucid, app_bundle, edition) FROM stdin;
 \.
 
 
@@ -158,7 +162,7 @@ COPY cloud_os (uuid, ctime, name, additional_apps, admin_uuid, app_bundle, editi
 -- Data for Name: cloud_os_event; Type: TABLE DATA; Schema: public; Owner: cloudstead
 --
 
-COPY cloud_os_event (uuid, ctime, cloud_os_uuid, message_key) FROM stdin;
+COPY cloud_os_event (uuid, ctime, exception, message_key, success, task_id, cloud_os_uuid) FROM stdin;
 \.
 
 
