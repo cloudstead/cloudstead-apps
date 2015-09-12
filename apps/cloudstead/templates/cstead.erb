@@ -54,7 +54,7 @@ FIXED_ARGS=""
 if [[ ${command} = "dns" || ${command} = "cos-dns" ]] ; then
   CONFIG=<%=@app[:chef_user_home]%>/chef/data_bags/cloudos-dns/init.json
   CONFIG_NODE="dyn"
-  FIXED_ARGS="--config ${CONFIG} --config-node ${CONFIG_NODE}"
+  FIXED_ARGS="direct --config ${CONFIG} --config-node ${CONFIG_NODE}"
 fi
 
 exec java ${debug} -cp ${JAR} ${class} ${FIXED_ARGS} "$@"
