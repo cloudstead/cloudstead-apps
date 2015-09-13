@@ -3,4 +3,5 @@ account:     cloudos.appstore.main.AppStoreAccountMain
 publisher:   cloudos.appstore.main.AppStorePublisherMain
 member:      cloudos.appstore.main.AppStoreMemberMain
 apps:        cloudos.appstore.main.AppStoreAppsMain
+asset:       cloudos.appstore.main.AppStoreAssetMain
 json:        org.cobbzilla.util.json.main.JsonEditor
