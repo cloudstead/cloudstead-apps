@@ -16,8 +16,8 @@
     ],
 
     "tarball": {
-        "url": "http://cloudstead.io/downloads/cloudos-appstore-server.tar.gz",
-        "shasum": "c1f0bfbdb6fb626272f239b055b3a794bf422c13efab0e5b0ce30b2cf1b42c82"
+        "url": "@config[init][server_tarball]",
+        "shasum": "@config[init][server_tarball_sha]"
     },
 
     "database": { "type": "postgresql", "schema_version": "1.0" },
